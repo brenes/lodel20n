@@ -28,6 +28,11 @@ class Territorio < ActiveRecord::Base
     send :"pais_url_#{descripcion_tipo}"
   end
 
+  def consultar_escrutinio  
+    escrutinio_xml = Nokogiri::XML(Net::HTTP.get(URI.parse(api_url)))
+    escrutinios << Escrutinio.create_from_api(self, escrutinio_xml)
+  end
+
   protected
 
   def api_url_pais
@@ -39,7 +44,7 @@ class Territorio < ActiveRecord::Base
   end
 
   def api_url_comunidad
-    "rsl00.epimg.net/elecciones/#{Settings["year"]}/generales/congreso/#{id_api}/index.xml2"
+    "http://rsl00.epimg.net/elecciones/#{Settings["year"]}/generales/congreso/#{id_api}/index.xml2"
   end
 
   def pais_url_comunidad

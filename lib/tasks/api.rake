@@ -3,13 +3,6 @@ namespace :elpais do
   desc "Tarea para descargar toda la estructura de territorios"
   task :descarga_territorios => :environment do
 
-    VCR.config do |c|
-      c.allow_http_connections_when_no_cassette = true
-      c.cassette_library_dir = 'db/vcr'
-      c.stub_with :webmock # or :fakeweb
-    end
-
-
     VCR.use_cassette("elpais_estructura_#{Settings["year"]}", :record => :new_episodes) do
       
       Territorio.delete_all
@@ -67,6 +60,13 @@ namespace :elpais do
       end
     end
 
+
+  end
+
+  desc "Tarea para descargar el escrutinio de los territorios en su estado actual"
+  task :escrutinio => :environment do
+
+    Territorio.all.each(&:consultar_escrutinio)
 
   end
 
