@@ -3,7 +3,7 @@ class Territorio < ActiveRecord::Base
   belongs_to :padre, :class_name => "Territorio", :foreign_key => "territorio_padre_id"
   has_many :hijos, :class_name => "Territorio", :foreign_key => "territorio_padre_id"
 
-  @@TIPOS_API = {:pais => 1, :comunidad => 2, :provincia => 3, :municipio => 4}
+  @@TIPOS_API = {:pais => 1, :comunidad => 2, :provincia => 3, :municipio => 5}
   cattr_reader :TIPOS_API
 
   def self.create_from_api id, padre, xml
