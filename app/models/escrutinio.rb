@@ -2,6 +2,7 @@ class Escrutinio < ActiveRecord::Base
   belongs_to :territorio
   has_many :resultados
 
+  scope :final, where(:hora => nil)
 
     # Los escrutinios tienen este formato
     # <escrutinio_sitio>
@@ -51,4 +52,7 @@ class Escrutinio < ActiveRecord::Base
     escrutinio
   end
 
+  def final?
+    hora.nil?
+  end
 end

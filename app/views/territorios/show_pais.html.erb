@@ -1,0 +1,65 @@
+<h1><%=@territorio.nombre%></h1>
+
+<div>
+  <ul>
+    <li><%= Territorio.comunidad.count %> Comunidades </li>
+    <li><%= Territorio.provincia.count %> Provincias </li>
+    <li><%= Territorio.municipio.count %> Municipios </li>
+  </ul>
+</div>
+
+<div>
+  <h2><%= @territorio.ultimo_escrutinio.final? ? "Escrutinio final" : "Escrutinio parcial" %></h2>
+  <% unless @territorio.ultimo_escrutinio.final? %>
+    <p>Datos actualizados por última vez a las <%=  @territorio.ultimo_escrutinio.hora %></p>
+  <% end %>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Partido</th>
+        <th>Votos totales</th>
+        <th>% Votos</th>
+        <th>Escaños</th>
+        <th>Disminución de votos</th>
+        <th>Disminución de escaños</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% ultimo_resultado = nil %>
+      <% @territorio.ultimo_escrutinio.resultados.all(:order => "total_votos DESC"). each do |resultado| %>
+      <tr>
+        <td>
+          <%= resultado.partido.nombre %>
+        </td>
+        <td>
+          <%= number_with_delimiter resultado.total_votos %>
+        </td>
+        <td>
+          <%= resultado.pct_votos %>
+        </td>
+        <td>
+          <%= resultado.escanos %>
+        </td>
+        <td>
+          <%= ultimo_resultado.nil? ? "--" : number_to_percentage(100-(100*resultado.total_votos/ultimo_resultado.total_votos.to_f), :precision => 4) %>
+        </td>
+        <td>
+          <%= (ultimo_resultado.nil? || resultado.escanos== 0) ? "--" : number_to_percentage(100-(100*resultado.escanos/ultimo_resultado.escanos.to_f), :precision => 4) %>
+        </td>
+        <% ultimo_resultado = resultado %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div>
+  <h2>Comunidades</h2>
+
+  <ul>
+  <% @territorio.hijos.each do |hijo| %>
+    <li><%= link_to hijo.nombre, territorio_path(hijo) %> </li>
+  <% end %>
+  </ul>
+</div>

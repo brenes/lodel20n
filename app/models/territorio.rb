@@ -6,6 +6,10 @@ class Territorio < ActiveRecord::Base
   @@TIPOS_API = {:pais => 1, :comunidad => 2, :provincia => 3, :municipio => 5}
   cattr_reader :TIPOS_API
 
+  @@TIPOS_API.each do |name, id|
+    scope name.to_sym, where(:tipo_api => id)
+  end
+
   def self.create_from_api id, padre, xml
     num_a_elegir =  xml.xpath("/escrutinio_sitio/num_a_elegir").first
     tipo = xml.xpath("/escrutinio_sitio/tipo_sitio").first.content
@@ -31,6 +35,10 @@ class Territorio < ActiveRecord::Base
   def consultar_escrutinio  
     escrutinio_xml = Nokogiri::XML(Net::HTTP.get(URI.parse(api_url)))
     escrutinios << Escrutinio.create_from_api(self, escrutinio_xml)
+  end
+
+  def ultimo_escrutinio
+    escrutinios.final.first || escrutinios(:order => "hora DESC").first
   end
 
   protected
