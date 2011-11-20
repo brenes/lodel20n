@@ -1,0 +1,11 @@
+default: &defaults
+  year: 2008
+
+development:
+    <<: *defaults
+
+test:
+    <<: *defaults
+
+production:
+    <<: *defaults
