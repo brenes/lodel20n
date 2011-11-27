@@ -9,10 +9,9 @@
 </div>
 
 <div>
-  <h2><%= @territorio.ultimo_escrutinio.final? ? "Escrutinio final" : "Escrutinio parcial" %></h2>
-  <% unless @territorio.ultimo_escrutinio.final? %>
-    <p>Datos actualizados por última vez a las <%=  @territorio.ultimo_escrutinio.hora %></p>
-  <% end %>
+  
+  <%= raw @escrutinio_seo.header_seccion %>
+  <%= raw @escrutinio_html.fecha_actualizacion %>
 
   <table>
     <thead>
