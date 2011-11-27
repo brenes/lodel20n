@@ -10,6 +10,7 @@ class Territorio < ActiveRecord::Base
     scope name.to_sym, where(:tipo_api => id)
   end
 
+  scope :interesantes,  where("tipo_api = #{@@TIPOS_API[:pais]} OR tipo_api = #{@@TIPOS_API[:comunidad]} OR tipo_api = #{@@TIPOS_API[:provincia]}")
   def self.create_from_api id, padre, xml
     num_a_elegir =  xml.xpath("/escrutinio_sitio/num_a_elegir").first
     tipo = xml.xpath("/escrutinio_sitio/tipo_sitio").first.content
