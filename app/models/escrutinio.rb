@@ -2,7 +2,7 @@ class Escrutinio < ActiveRecord::Base
   belongs_to :territorio
   has_many :resultados
 
-  scope :final, where(:hora => nil)
+  scope :final, where(:pct_escrutado => 100)
 
     # Los escrutinios tienen este formato
     # <escrutinio_sitio>
@@ -37,6 +37,7 @@ class Escrutinio < ActiveRecord::Base
     return escrutinio unless escrutinio.nil?
 
     escrutinio = Escrutinio.create! :territorio_id => territorio.id, :hora => hora, 
+      :pct_escrutado => escrutinio_xml.xpath("/escrutinio_sitio/porciento_escrutado").first.content,
       :total_contabilizados => escrutinio_xml.xpath("/escrutinio_sitio/votos/contabilizados/cantidad").first.content,
       :pct_contabilizados => escrutinio_xml.xpath("/escrutinio_sitio/votos/contabilizados/porcentaje").first.content,
       :total_abstenciones => escrutinio_xml.xpath("/escrutinio_sitio/votos/abstenciones/cantidad").first.content,
@@ -53,6 +54,6 @@ class Escrutinio < ActiveRecord::Base
   end
 
   def final?
-    hora.nil?
+    pct_escrutado == 100
   end
 end
