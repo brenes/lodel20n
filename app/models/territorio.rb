@@ -38,7 +38,7 @@ class Territorio < ActiveRecord::Base
   end
 
   def ultimo_escrutinio
-    escrutinios.final.first || escrutinios(:order => "hora DESC").first
+    escrutinios.final.first || escrutinios.first(:order => "hora DESC")
   end
 
   protected
