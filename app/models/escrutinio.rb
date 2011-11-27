@@ -30,7 +30,7 @@ class Escrutinio < ActiveRecord::Base
   def self.create_from_api territorio, escrutinio_xml
     
     hora = escrutinio_xml.xpath("/escrutinio_sitio/ts").first.content
-    hora = (hora == 0) ? nil : hora
+    hora = (hora == 0) ? nil : Time.at(hora.to_i)
 
     escrutinio = Escrutinio.find_by_territorio_id_and_hora(territorio.id, hora)
     # si tenemos escrutinio de esta hora no lo repetimos
