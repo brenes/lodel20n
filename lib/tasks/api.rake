@@ -66,7 +66,12 @@ namespace :elpais do
   desc "Tarea para descargar el escrutinio de los territorios en su estado actual"
   task :escrutinio => :environment do
 
-    Territorio.all.each(&:consultar_escrutinio)
+    # Tarda tanto que podemos dejarlo en bucle sin problema
+    while true
+      Territorio.interesantes.each do |t|
+        t.consultar_escrutinio
+      end
+    end
 
   end
 
