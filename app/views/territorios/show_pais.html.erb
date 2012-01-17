@@ -1,16 +1,17 @@
-<h1><%=@territorio.nombre%></h1>
-
-<div>
-  <ul>
-    <li><%= Territorio.comunidad.count %> Comunidades </li>
-    <li><%= Territorio.provincia.count %> Provincias </li>
-    <li><%= Territorio.municipio.count %> Municipios </li>
-  </ul>
+<%= raw @territorio.decorator(:Html).sidebar %>
+<div id="sidebar">
+  <h2><%=@territorio.nombre%></h2>
+  <div>
+    <ul>
+      <li><%= Territorio.comunidad.count %> Comunidades </li>
+      <li><%= Territorio.provincia.count %> Provincias </li>
+      <li><%= Territorio.municipio.count %> Municipios </li>
+    </ul>
+  </div>
 </div>
 
-<div>
+<div id="inner_content">
   
-  <%= raw @escrutinio_seo.header_seccion %>
   <%= raw @escrutinio_html.fecha_actualizacion %>
 
   <table>
