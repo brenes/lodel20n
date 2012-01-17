@@ -5,3 +5,15 @@
  *= require_self
  *= require_tree . 
 */
+
+#header
+{
+  width: 95em;
+  margin: 0 auto;
+}
+
+#content
+{
+  width: 95em;
+  margin: 0 auto;
+}

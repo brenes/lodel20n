@@ -2,13 +2,17 @@
 <html>
 <head>
   <title>Lodel20n</title>
-  <%= stylesheet_link_tag    "application" %>
+  <%= stylesheet_link_tag    "reset", "application" %>
   <%#= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
+  <div id="header">
+  <%= render :partial => "shared/header" %>
+  </div>
+  <div id="content">
+  <%= yield %>
+  </div>
 
 </body>
 </html>
