@@ -17,3 +17,14 @@
   width: 95em;
   margin: 0 auto;
 }
+
+#graphic div div
+{
+  float:left;
+  border: 1px solid #999;
+}
+
+#graphic div span
+{
+  display:block;
+}
