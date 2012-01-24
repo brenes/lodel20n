@@ -8,10 +8,14 @@
 </head>
 <body>
   <div id="header">
-  <%= render :partial => "shared/header" %>
+    <div class="wrapper">
+      <%= render :partial => "shared/header" %>
+    </div>
   </div>
   <div id="content">
-  <%= yield %>
+    <div class="wrapper">
+      <%= yield %>
+    </div>
   </div>
 
 </body>
