@@ -8,5 +8,5 @@ class ApplicationController < ActionController::Base
   Dir["app/decorators/**/*.rb"].each do |path| 
     require_dependency path 
   end 
-
+  I18n.locale = :es
 end
