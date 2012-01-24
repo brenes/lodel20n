@@ -1,33 +1,36 @@
 <%= raw @territorio.decorator(:Html).sidebar %>
 <div id="sidebar">
-  <h2><%=@territorio.nombre%></h2>
+  <h3><%=@territorio.nombre%></h3>
   <div>
     <ul>
-      <li><%= Territorio.comunidad.count %> Comunidades </li>
-      <li><%= Territorio.provincia.count %> Provincias </li>
-      <li><%= Territorio.municipio.count %> Municipios </li>
+      <li><%= number_with_delimiter Territorio.comunidad.count %> Comunidades </li>
+      <li><%= number_with_delimiter Territorio.provincia.count %> Provincias </li>
+      <li><%= number_with_delimiter Territorio.municipio.count %> Municipios </li>
+      <li><%= number_with_delimiter @territorio.ultimo_escrutinio.total_nulos %> Votos nulos</li>
+      <li><%= number_with_delimiter @territorio.ultimo_escrutinio.total_abstenciones %> Abstenciones</li>
+      <li><%= number_with_delimiter @territorio.ultimo_escrutinio.total_contabilizados %> Votos útiles</li>
+      <li><%= number_with_delimiter @territorio.ultimo_escrutinio.total_votos, :locale => :es %> Votos</li>
+      
     </ul>
   </div>
 </div>
 
 <div id="inner_content">
   
-  <%= raw @escrutinio_html.fecha_actualizacion %>
-
-  <table>
+  <table class="datos-principales">
     <thead>
       <tr>
         <th>Partido</th>
         <th>Votos totales</th>
         <th>% Votos</th>
         <th>Escaños</th>
-        <th>Disminución de votos</th>
-        <th>Disminución de escaños</th>
+        <th>Aumento de votos</th>
+        <th>Aumento de escaños</th>
       </tr>
     </thead>
     <tbody>
     <% ultimo_resultado = nil %>
-      <% @territorio.ultimo_escrutinio.resultados.all(:order => "total_votos DESC"). each do |resultado| %>
+      <% @territorio.ultimo_escrutinio.resultados.all(:order => "total_votos ASC"). each do |resultado| %>
       <tr>
         <td>
           <%= resultado.partido.nombre %>
@@ -42,10 +45,10 @@
           <%= resultado.escanos %>
         </td>
         <td>
-          <%= ultimo_resultado.nil? ? "--" : number_to_percentage(100-(100*resultado.total_votos/ultimo_resultado.total_votos.to_f), :precision => 4) %>
+          <%= ultimo_resultado.nil? ? "--" : number_to_percentage(100-(100*ultimo_resultado.total_votos/resultado.total_votos.to_f), :precision => 4) %>
         </td>
         <td>
-          <%= (ultimo_resultado.nil? || resultado.escanos== 0) ? "--" : number_to_percentage(100-(100*resultado.escanos/ultimo_resultado.escanos.to_f), :precision => 4) %>
+          <%= (ultimo_resultado.nil? || resultado.escanos== 0) ? "--" : number_to_percentage(100-(100*ultimo_resultado.escanos/resultado.escanos.to_f), :precision => 4) %>
         </td>
         <% ultimo_resultado = resultado %>
       </tr>
