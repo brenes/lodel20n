@@ -56,4 +56,8 @@ class Escrutinio < ActiveRecord::Base
   def final?
     pct_escrutado == 100
   end
+
+  def total_votos
+    total_contabilizados + total_abstenciones + total_nulos
+  end
 end

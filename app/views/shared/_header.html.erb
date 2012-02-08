@@ -1,0 +1,15 @@
+<% territorio = @territorio || Territorio.pais.first %>
+<h1><%= link_to "#Lodel20n", root_path %></h1>
+
+<span class="nombre-territorio">en <%= link_to territorio.nombre, territorio_path(territorio)%></span>
+<ul id="menu">
+  <li>
+    <%= link_to "Escrutinio Final", territorio_path(territorio) %>
+  </li>
+  <li>
+    <%= link_to "Evolución del escrutinio", territorio_path(territorio) %>
+  </li>
+  <li>
+    <%= link_to "Detalles de escaños", territorio_path(territorio) %>
+  </li>
+</ul>

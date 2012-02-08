@@ -1,0 +1,61 @@
+/**
+ * base.css A reset stylesheet plus common classes
+ *
+ * Copyright (c) 2009, Alejandro Fernández Gómez
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above copyright
+ *       notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *     * Neither the name of the <organization> nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
+ * 
+ * THIS SOFTWARE IS PROVIDED BY Alejandro Fernández Gómez ''AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL Alejandro Fernández Gómez BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+html{font:62.5% Arial, Helvetica,sans-serif;}
+body{margin:0;font-size:100%;}
+* html body{font-size:101%;}
+*:first-child+html body{font-size:101%;}
+
+h1,h2,h3,h4,h5,h6,p,pre,blockquote{margin:0;font-size:1em;}
+ul,ol,dl,dt,dd{padding:0;margin:0;}
+ul,ol{list-style:none;}
+address,cite{font-style:normal;}
+img{border:none;-ms-interpolation-mode:bicubic;}
+
+article,aside,dialog,figure,footer,header,hgroup,nav,section{display:block;}
+
+td,th{vertical-align:top;}
+caption,th{text-align:left;}
+
+form{margin:0;}
+fieldset{margin:0;padding:0;border:none;}
+legend{margin:0;padding:0;color:#000;}
+input,textarea,select{font:1em Arial,Helvetica,sans-serif;}
+textarea{overflow:auto;}
+input[type="text"]{margin:0;}
+
+.estirar:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+.estirar{display:inline-block;}
+/*\*/
+.estirar{display:block;}
+* html .estirar{height:1px;}
+/**/
+.izq,.col-i{float:left;display:inline;}
+.drcha,.col-d{float:right;display:inline;}
+.table{display:table;height:1%;}

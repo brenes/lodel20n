@@ -1,0 +1,5 @@
+es:
+  number:
+    format:
+      separator: ","
+      delimiter: "."

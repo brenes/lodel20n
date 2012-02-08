@@ -1,4 +1,3 @@
-puts "ZORG"
 module Decorators
   class Base
     def initialize(decorated)
