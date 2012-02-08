@@ -4,7 +4,7 @@ module Decorators::Territorio
     def distribucion_partidos
       escrutinio = @decorated.ultimo_escrutinio
 
-      "var data = #{escrutinio.resultados.map{|r| {:name => r.pct_votos > 0.5 ? r.partido.nombre : "", :pct => 1 + r.pct_votos*(100-escrutinio.resultados.count)/100}}.to_json};
+      "var data = #{escrutinio.resultados.map{|r| {:id => r.id, :name => r.pct_votos > 0.5 ? r.partido.nombre : "", :pct => 1 + r.pct_votos*(100-escrutinio.resultados.count)/100}}.to_json};
 
         var w = 600,                        //width
         h = 400,                            //height
@@ -32,8 +32,34 @@ module Decorators::Territorio
                 .attr(\"class\", \"slice\");    //allow us to style things in the slices (like text)
 
         arcs.append(\"svg:path\")
+                .attr('id', function(d, i) { 
+                  return 'party-'+d.data.id;
+                   } )
                 .attr(\"fill\", function(d, i) { return color(i); } ) //set the color for each slice to be chosen from the color function defined above
-                .attr(\"d\", arc);                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
+                .attr(\"d\", arc)                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
+                .on(\"mouseover\", function() {
+                  $('.'+this.id).addClass('active');
+                  d3.select(this).transition()
+                  .attr(\"transform\", function(d) {
+                   angle = d.startAngle + (d.endAngle - d.startAngle)/2
+                   distance = 20
+                   return \"translate(\" + distance*Math.sin(angle) + \", \" + -1*distance*Math.cos(angle) + \")\";    
+                  })
+                  .delay(0)
+                  .duration(1000)
+                })                            
+                .on(\"mouseout\", function() {
+                  $('.'+this.id).removeClass('active');
+                  d3.select(this).transition()
+                  .attr(\"transform\", function(d) {
+                   angle = d.startAngle + (d.endAngle - d.startAngle)/2
+                   distance = 20
+                   return \"translate(0,0)\";    
+                  })
+                  .delay(1000)
+                  .duration(1000)
+                  });;
+    
 
         arcs.append(\"svg:text\")                                     //add a label to each slice
                 .attr(\"transform\", function(d) {                    //set the label's origin to the center of the arc
