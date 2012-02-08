@@ -23,8 +23,17 @@
 </div>
 
 <div id="inner_content">
+
+    <% @territorio.ultimo_escrutinio.resultados.map(&:partido).each do |partido|%>
+    <div class="ficha-partido party party-<%=partido.id%>">
+      <h3><%= partido.nombre %></h3>
+      <p><%= partido.resultados.count %> resultados</p>
+    </div>
+    <% end %>
+
   
-  <div id="graphic"></div>
+  <div id="graphic">
+  </div>
 
   <table class="datos-principales">
     <thead>
@@ -40,7 +49,7 @@
     <tbody>
     <% ultimo_resultado = nil %>
       <% @territorio.ultimo_escrutinio.resultados.all(:order => "total_votos ASC"). each do |resultado| %>
-      <tr class="party-<%=resultado.id%>">
+      <tr class="party party-<%=resultado.partido.id%>">
         <td>
           <%= resultado.partido.nombre %>
         </td>

@@ -4,7 +4,7 @@ module Decorators::Territorio
     def distribucion_partidos
       escrutinio = @decorated.ultimo_escrutinio
 
-      "var data = #{escrutinio.resultados.map{|r| {:id => r.id, :name => r.pct_votos > 0.5 ? r.partido.nombre : "", :pct => 1 + r.pct_votos*(100-escrutinio.resultados.count)/100}}.to_json};
+      "var data = #{escrutinio.resultados.map{|r| {:id => r.partido.id, :name => r.pct_votos > 0.5 ? r.partido.nombre : "", :pct => 1 + r.pct_votos*(100-escrutinio.resultados.count)/100}}.to_json};
 
         var w = 600,                        //width
         h = 400,                            //height
@@ -38,7 +38,9 @@ module Decorators::Territorio
                 .attr(\"fill\", function(d, i) { return color(i); } ) //set the color for each slice to be chosen from the color function defined above
                 .attr(\"d\", arc)                                    //this creates the actual SVG path using the associated data (pie) with the arc drawing function
                 .on(\"mouseover\", function() {
+                  $('.party').removeClass('active');
                   $('.'+this.id).addClass('active');
+
                   d3.select(this).transition()
                   .attr(\"transform\", function(d) {
                    angle = d.startAngle + (d.endAngle - d.startAngle)/2
@@ -46,10 +48,10 @@ module Decorators::Territorio
                    return \"translate(\" + distance*Math.sin(angle) + \", \" + -1*distance*Math.cos(angle) + \")\";    
                   })
                   .delay(0)
-                  .duration(1000)
+                  .duration(1000);
+
                 })                            
                 .on(\"mouseout\", function() {
-                  $('.'+this.id).removeClass('active');
                   d3.select(this).transition()
                   .attr(\"transform\", function(d) {
                    angle = d.startAngle + (d.endAngle - d.startAngle)/2
