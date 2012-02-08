@@ -94,6 +94,12 @@ table.datos-principales tbody td
 }
 
 
+table.datos-principales tr.active
+{
+  background-color: #000000;
+}
+
+
 #graphic div div
 {
   float:left;
@@ -103,4 +109,27 @@ table.datos-principales tbody td
 #graphic div span
 {
   display:block;
+}
+
+.ficha-partido
+{
+  display:none;
+  position:absolute;
+  border: 2px solid #3182bd;  
+  border-radius: 15px;
+  padding: 1em 2em 5em;
+  margin-top: 2em;
+  font-size: 1.2em;
+}
+
+
+.ficha-partido.active
+{
+  display:block;
+  left:55%;
+}
+
+.ficha-partido h3
+{
+  margin-bottom:1em;
 }
