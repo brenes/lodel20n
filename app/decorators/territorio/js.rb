@@ -7,8 +7,9 @@ module Decorators::Territorio
       "var data = #{escrutinio.resultados.map{|r| {:id => r.partido.id, :name => r.pct_votos > 0.5 ? r.partido.nombre : "", :pct => 1 + r.pct_votos*(100-escrutinio.resultados.count)/100}}.to_json};
 
         var w = 600,                        //width
-        h = 400,                            //height
-        r = 250,                            //radius
+        h = 450,                            //height
+        r = 200,                            //radius
+        center = 225;
         color = d3.scale.category20c();     //builtin range of colors
 
         var vis = d3.select(\"#graphic\")
@@ -17,7 +18,7 @@ module Decorators::Territorio
             .attr(\"width\", w)           //set the width and height of our visualization (these will be attributes of the <svg> tag
             .attr(\"height\", h)
           .append(\"svg:g\")                //make a group to hold our pie chart
-            .attr(\"transform\", \"translate(\" + r + \",\" + r + \")\")    //move the center of the pie chart from 0, 0 to radius, radius
+            .attr(\"transform\", \"translate(\" + center + \",\" + center + \")\")    //move the center of the pie chart from 0, 0 to radius, radius
 
         var arc = d3.svg.arc()              //this will create <path> elements for us using arc data
           .outerRadius(r);
